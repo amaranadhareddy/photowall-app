@@ -7,9 +7,10 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./redux/reducer";
 import thunk from "redux-thunk";
+import ServiceWorkerRegister from "./components/ServiceWorkerRegister";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
-
+ServiceWorkerRegister();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

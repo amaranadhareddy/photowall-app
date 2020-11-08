@@ -1,0 +1,30 @@
+{
+	"short_name": "Photowall",
+	"name": "Photowall",
+	"lang": "en",
+	"description": "Share images with your friends",
+	"start_url": "/",
+	"background_color": "#ffffff",
+	"theme_color": "#00aae7",
+	"dir": "ltr",
+	"display": "standalone",
+	"orientation": "any",
+	
+	"icons": [
+		{
+			"src": "images/apple-icon-72x72-dunplab-manifest-28808.png",
+			"type": "image/png",
+			"sizes": "72x72"
+		},
+		{
+			"src": "images/apple-icon-144x144-dunplab-manifest-28808.png",
+			"type": "image/png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "images/android-icon-192x192-dunplab-manifest-28808.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		}
+	]
+}
