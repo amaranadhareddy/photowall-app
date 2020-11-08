@@ -11,14 +11,11 @@ import { withRouter } from "react-router-dom";
 import PhotoDetail from "./components/PhotoDetail";
 
 class App extends Component {
-
   componentDidMount() {
     this.props.getPostsDB().then(() => {
       this.setState({ loading: false });
     });
     this.props.getCommentsDB();
-    console.log(`api:${process.env.REACT_APP_DB_API_KEY}`)  
-    console.log(`do:${process.env.DB_AUTH_DOMAIN}`)   
   }
   state = { loading: true };
   render() {
