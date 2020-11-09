@@ -1,4 +1,4 @@
-import db from "../data/config";
+import { db, storage } from "../data/config";
 
 export function getPostsDB() {
   return (dispatch) => {
@@ -13,6 +13,19 @@ export function getPostsDB() {
         dispatch(getPosts(posts));
       })
       .catch((err) => console.log(err));
+  };
+}
+
+export function uploadPhotoDB(post) {
+  return (dispatch) => {
+    const file = post.imageLink;
+    const storageRef = storage.ref(file.name);
+    storageRef.put(file).then(async () => {
+      post.imageLink = await storageRef.getDownloadURL();
+      console.log(post);
+
+      dispatch(addPhotoDB(post));
+    });
   };
 }
 
@@ -78,7 +91,6 @@ export function getCommentsDB() {
   };
 }
 
-
 export function getPosts(posts) {
   return {
     type: "GET_POSTS",
@@ -86,8 +98,7 @@ export function getPosts(posts) {
   };
 }
 
-export function getComments(comments){
-  
+export function getComments(comments) {
   return {
     type: "GET_COMMENTS",
     comments,

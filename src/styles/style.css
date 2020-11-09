@@ -177,8 +177,10 @@ button:focus,
   padding: 0 0 0;
   margin: auto;
 }
-
-.form input {
+a{
+  text-decoration: none;
+}
+.form input,select {
   font-family: sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -219,6 +221,7 @@ button:focus,
 }
 
 @media (max-width: 450px) {
+  
   .single-photo {
     flex-direction: column;
   }

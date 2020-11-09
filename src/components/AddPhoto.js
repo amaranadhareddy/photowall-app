@@ -10,11 +10,23 @@ class AddPhoto extends Component {
   static propTypes = {
     addPhoto: PropTypes.func.isRequired,
   };
+
+  fileTypes = ["image/png", "image/jpeg", "image/jpg"];
   render() {
     return (
       <div className="form">
         <form onSubmit={this.postAdded}>
-          <input type="text" placeholder="Link" name="link" />
+          <select
+            name="uploadType"
+            className="dropdown"
+            onChange={this.handleChange}
+          >
+            <option>Select Upload type</option>
+            <option value="upload">Upload</option>
+            <option value="link">Image link</option>
+          </select>
+          <input type="file" name="file" hidden />
+          <input type="text" placeholder="Link" name="link" hidden />
           <input type="text" placeholder="Desciption" name="description" />
           <button> Post </button>
         </form>
@@ -22,10 +34,37 @@ class AddPhoto extends Component {
     );
   }
 
+  handleChange(e) {
+    let linkUI = document.querySelector("input[name='link']");
+    let fileUI = document.querySelector("input[name='file']");
+    if (e.target.value === "link") {
+      linkUI.style.display = "block";
+      fileUI.style.display = "none";
+    } else if (e.target.value === "upload") {
+      linkUI.style.display = "none";
+      fileUI.style.display = "block";
+    } else {
+      linkUI.style.display = "none";
+      fileUI.style.display = "none";
+    }
+  }
+
   postAdded(e) {
     e.preventDefault();
     const description = e.target.elements.description.value;
-    const imageLink = e.target.elements.link.value;
+    const uploadType = e.target.elements.uploadType.value;
+    let imageLink;
+    let error = "please fill all the fields";
+    if (uploadType === "link") imageLink = e.target.elements.link.value;
+    else if (uploadType === "upload") {
+      console.log();
+      const file = document.querySelector("input[name='file']").files[0];
+      if (file && this.fileTypes.includes(file.type)) {
+        imageLink = file;
+      } else {
+        error = "please select only image files";
+      }
+    }
 
     const post = {
       id: Number(new Date()),
@@ -34,8 +73,14 @@ class AddPhoto extends Component {
     };
 
     if (description && imageLink) {
-      this.props.addPhotoDB(post);
+      if (uploadType === "link") this.props.addPhotoDB(post);
+      else if (uploadType === "upload") {
+        this.props.uploadPhotoDB(post);
+      }
+
       this.props.history.push("/");
+    } else {
+      alert(error);
     }
   }
 }

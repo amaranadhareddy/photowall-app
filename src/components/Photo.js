@@ -11,14 +11,7 @@ const Photo = (props) => {
       </Link>
       <p>{post.description}</p>
       <div className="button-container">
-        <button
-          onClick={() => {
-            props.removePhotoDB(post.id);
-            props.history.push("/");
-          }}
-        >
-          Delete
-        </button>
+        <button><a href={post.imageLink}>Download</a> </button>
         <Link className="button" to={`/detail/${post.id}`}>
           <div className="comment-count">
             <div className="speech-bubble"> </div>
